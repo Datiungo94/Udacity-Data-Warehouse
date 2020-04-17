@@ -15,11 +15,11 @@ My task is to:
 ### Database schema
 ---
 
-###### 2 Staging Tables to load data from S3
- - staging_events
- - staging_songs
+##### 2 Staging Tables to load data from S3
+ - **staging_events**
+ - **staging_songs**
 
-###### Fact Table
+##### Fact Table
 1. **songplays** - records in event data associated with song plays i.e. records with page "NextSong"
 
 ###### Dimension Tables
@@ -53,7 +53,7 @@ My task is to:
 
 1. Create a Python environment with dependencies listed on `requirements.txt`.
 
-2. Fill out information in config/dwh.cfg, except `[HOST]` and `[DWH_ROLE_ARN].
+2. Fill out information in config/dwh.cfg, except `[HOST]` and `[DWH_ROLE_ARN]`.
 ```
 [CLUSTER]
 DWH_DB=sparkify
@@ -73,7 +73,7 @@ LOG_DATA='s3://udacity-dend/log-data'
 LOG_JSONPATH='s3://udacity-dend/log_json_path.json'
 SONG_DATA='s3://udacity-dend/song-data'
 ```
-3. Fill out master IAM role information in config/masterIAM.cfg.
+3. Fill out master IAM role information in `config/masterIAM.cfg`.
 ```
 [KEY]
 KEYID=
