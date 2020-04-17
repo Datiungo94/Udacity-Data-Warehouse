@@ -28,7 +28,7 @@ My task is to:
 4. **artists** - artists in music database
 5. **time** - timestamps of records in **songplays** broken down into specific units
 
-<Database schema.png>
+![Database schema](images/Database%20Schema.png)
 
 ### Project requirements
 ---
