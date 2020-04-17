@@ -15,11 +15,11 @@ My task is to:
 ### Database schema
 ---
 
-###### 2 Staging Tables to load data from S3
+##### 2 Staging Tables to load data from S3
  - **staging_events**
  - **staging_songs**
 
-###### Fact Table
+##### Fact Table
 1. **songplays** - records in event data associated with song plays i.e. records with page "NextSong"
 
 ###### Dimension Tables
