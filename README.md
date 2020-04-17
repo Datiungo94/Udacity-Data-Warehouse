@@ -16,8 +16,8 @@ My task is to:
 ---
 
 ###### 2 Staging Tables to load data from S3
- - staging_events
- - staging_songs
+ - **staging_events**
+ - **staging_songs**
 
 ###### Fact Table
 1. **songplays** - records in event data associated with song plays i.e. records with page "NextSong"
