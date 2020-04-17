@@ -22,7 +22,7 @@ My task is to:
 ##### Fact Table
 1. **songplays** - records in event data associated with song plays i.e. records with page "NextSong"
 
-###### Dimension Tables
+##### Dimension Tables
 2. **users** - users in the app
 3. **songs** - songs in music database
 4. **artists** - artists in music database
