@@ -1,5 +1,5 @@
 dwh.cfg
 masterIAM.cfg
-env/
-.vscode/
+env\
+.vscode\
 test.ipynb
