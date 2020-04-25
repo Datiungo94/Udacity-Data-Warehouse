@@ -6,8 +6,11 @@ from config import config
 from botocore.exceptions import ClientError
 
 def create_iam_read_role(iam, iamrolename):
-    # Create a new IAM Role (for read only)
-    # Return IAM role ARN
+    """
+    Create a new IAM Role (for read only)
+    Return IAM role ARN
+    """
+
     try:
         dwhRole = iam.create_role(
             Path='/',
@@ -29,7 +32,7 @@ def create_iam_read_role(iam, iamrolename):
         )
     except ClientError as e:
         print ('Error at Creating IAM role:', e)
-        
+
     # Attach role policy
     iam.attach_role_policy(RoleName=iamrolename,
                             PolicyArn="arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess"
@@ -37,6 +40,8 @@ def create_iam_read_role(iam, iamrolename):
 
 
 def create_cluster(redshift, roleArn):
+    """Create Redshift cluster using IAM master role"""
+
     try:
         response = redshift.create_cluster(
             # HW
@@ -73,6 +78,7 @@ def create_cluster(redshift, roleArn):
 
 
 def authorize_ingress(ec2, props):
+    """Open an incoming TCP port to access the cluster endpoint"""
     try:
         vpc = ec2.Vpc(id=props['VpcId'])
         defaultSg = list(vpc.security_groups.all())[0]
