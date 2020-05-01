@@ -40,16 +40,16 @@ staging_events_table_create= ('''
 
 staging_songs_table_create = ("""
     CREATE TABLE staging_songs (
-        num_songs int,
-        artist_id text,
-        artist_name varchar(max),
-        artist_latitude numeric,
-        artist_longitude numeric,
-        artist_location text,
-        song_id text,
-        title text,
-        duration numeric,
-        year int
+        num_songs INT,
+        artist_id VARCHAR,
+        artist_latitude VARCHAR,
+        artist_longitude VARCHAR,
+        artist_location VARCHAR,
+        artist_name VARCHAR,
+        song_id VARCHAR,
+        title VARCHAR,
+        duration FLOAT,
+        year INT
     )
 """)
 
@@ -114,14 +114,15 @@ staging_events_copy = (''' COPY staging_events
                        CREDENTIALS 'aws_iam_role={}'
                        FORMAT AS JSON {}
                        REGION 'us-west-2'
-                       TIME FORMAT AS 'epochmillisecs';
+                       TIMEFORMAT AS 'epochmillisecs';
 ''').format(config['S3']['LOG_DATA'], config['CLUSTER']['DWH_ROLE_ARN'], config['S3']['LOG_JSONPATH'])
 
 staging_songs_copy = ('''COPY staging_songs
                        FROM {}
                        CREDENTIALS 'aws_iam_role={}'
                        REGION 'us-west-2'
-                        FORMAT AS JSON 'auto';
+                       FORMAT AS JSON 'auto'
+                       ACCEPTINVCHARS;
 ''').format(config['S3']['SONG_DATA'], config['CLUSTER']['DWH_ROLE_ARN'])
 
 # FINAL TABLES
@@ -174,7 +175,13 @@ time_table_insert = ("""
 songplay_table_insert = ("""
     INSERT INTO songplay (start_time, user_id, level, song_id, artist_id, 
                             session_id, location, user_agent)
-    SELECT DISTINCT
+    SELECT DISTINCT ev.ts        AS start_time,
+                    ev.level     AS level,
+                    s.song_id    AS song_id,
+                    s.artist_id  AS artist_id,
+                    ev.sessionId AS session_id,
+                    ev.location  AS location,
+                    ev.userAgent AS user_agent
     FROM staging_events ev
     JOIN staging_songs s ON (ev.song = s.title AND ev.artist = s.artist_name)
     AND ev.page = 'NextSong';
